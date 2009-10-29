@@ -1,8 +1,10 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from django.utils import simplejson
-import simplejson
+try:
+    import simplejson
+except:
+    from django.utils import simplejson
 import os
 
 gousei_data = simplejson.load(open(os.path.join(os.path.dirname(__file__), 'data/gousei.json')))
