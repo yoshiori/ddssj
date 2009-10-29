@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-import simplejson
+import simplejson,urllib
 if __name__ == '__main__':
     detail_data = simplejson.load(open('devil_detail.json'))
     def _print(data):
@@ -38,6 +38,8 @@ if __name__ == '__main__':
         detail['vitality'] = _print(data[21])
         detail['speed'] = _print(data[22])
         detail['luck'] = _print(data[23])
+        detail['urlencode'] = urllib.quote_plus(_print(name))
+        detail['test'] ='test'
         _list[_print(name)] = detail
     file = open('devil_detail_dic.json','w')
     file.write(
@@ -45,4 +47,6 @@ if __name__ == '__main__':
                     indent=2,ensure_ascii=False)
             )
     file.close()
+    from datetime import datetime
+    print 'finish',datetime.now()
 

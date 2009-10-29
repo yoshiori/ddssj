@@ -186,7 +186,7 @@ p {
 	background: url(../images/menu_item_bg.jpg) left bottom no-repeat;
 }
 
-#menu_section ul li a {
+#menu_section ul li span {
 	margin: 0px;
 	padding: 0px;	
 	font-size: 18px;
@@ -194,7 +194,7 @@ p {
 	color: #2bb9ec;
 }
 
-#menu_section ul li a span {
+#menu_section ul li span span {
 	margin: 0px;
 	padding: 0px;	
 	margin-left: 50px;
@@ -203,11 +203,11 @@ p {
 	color: #2bb9ec;
 }
 
-#menu_section ul li a span:hover {
+#menu_section ul li span span:hover {
 	color: #fff;
 }
 
-#menu_section li a:hover, #menu_section li .current {
+#menu_section li span:hover, #menu_section li .current {
 	color: #fff;
 	text-decoration: none;
 }

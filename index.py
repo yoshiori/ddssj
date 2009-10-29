@@ -19,20 +19,24 @@ class MainPage(webapp.RequestHandler):
         detail = []
         if name:
             detail = search.detail_data.get(name)
-        nomal_results = {}
+        normal_results = {}
         special_result = []
+        min_max = []
+        if name and not detail:
+            self.response.out.write('404 Daemon Not Found.')
+            self.response.set_status(404)
+            return
         if detail:
             special_result = search.search_special(detail)
             if not special_result :
-                nomal_results = search.search_nomal(detail)
-        logging.debug(detail)
-        logging.debug(nomal_results)
+                normal_results = search.search_normal(detail)
+                min_max = search.get_min_max(detail)
         values = {
             'detail':detail,
-            'nomal' : nomal_results,
-            'special' : special_result,
+            'normals':normal_results,
+            'special':special_result,
+            'min_max':min_max,
             }
-
         self.response.out.write(template.render(path, values))
 
     def post(self,*name):

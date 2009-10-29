@@ -37,18 +37,24 @@ def get_min_max(devil):
             continue
         _level = dev['lv']
         if level > _level and _min < _level:
-            _min = _level
+            _min = _level + 1
         if level < _level and _max > _level:
             _max = _level
+    if not _max == 100:
+        _max = level
     return _min,_max
 
-def search_nomal(devil):
+def search_normal(devil):
     gousei = gousei_data[devil['type']]
     min_max = get_min_max(devil)
-    results = {}
+    results = []
     for result in gousei:
         result = tuple(result)
-        results[result] = search_result(result,min_max)
+        details = search_result(result,min_max)
+        if details:
+            results.append({'type':result,
+                           'details':details,
+                           })
     return results
 
 def search_special(devil):
@@ -62,7 +68,7 @@ def search_special(devil):
     
 if __name__ == '__main__':
     import sys
-    text = u'メタトロン'
+    text = u'リリム'
 
     if 1 < len(sys.argv):
         text = unicode(sys.argv[1],'utf-8')
@@ -75,12 +81,11 @@ if __name__ == '__main__':
         for result in special_result:
             print result['name'].encode('utf-8'),
     else:
-        for key,data in search_nomal(devil).items():
-            if data:
-                print key[0].encode('utf-8'),key[1].encode('utf-8')
-                for _data in data:
-                    for foo in _data:
-                        print foo['name'].encode('utf-8'),
-                    print
+        for data in search_normal(devil):
+            print data['type'][0].encode('utf-8'),data['type'][1].encode('utf-8')
+            for _data in data['details']:
+                for foo in _data:
+                    print foo['name'].encode('utf-8'),foo['urlencode']
                 print
+            print
 
