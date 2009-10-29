@@ -1,12 +1,14 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-
+#import simplejson
 from django.utils import simplejson
 import os
 
 gousei_data = simplejson.load(open(os.path.join(os.path.dirname(__file__), 'data/gousei.json')))
 detail_data = simplejson.load(open(os.path.join(os.path.dirname(__file__), 'data/devil_detail_dic.json')))
 tokusyu_data = simplejson.load(open(os.path.join(os.path.dirname(__file__), 'data/tokusyu.json')))
+element_data = simplejson.load(open(os.path.join(os.path.dirname(__file__), 'data/element.json')))
+
 devil_list ={}
 
 for data in detail_data.values():
@@ -57,6 +59,15 @@ def search_normal(devil):
                            })
     return results
 
+def search_element(devil):
+    name = devil['name']
+    if element_data.has_key(name):
+        results = []
+        for result in element_data[name]:
+            result = (result,result)
+            results.append({'type':result})
+        return results
+    
 def search_special(devil):
     name = devil['name']
     if tokusyu_data.has_key(name):
@@ -67,8 +78,10 @@ def search_special(devil):
         return _list
     
 if __name__ == '__main__':
+ 
     import sys
     text = u'リリム'
+    text = u'エアロス'
 
     if 1 < len(sys.argv):
         text = unicode(sys.argv[1],'utf-8')
@@ -81,11 +94,12 @@ if __name__ == '__main__':
         for result in special_result:
             print result['name'].encode('utf-8'),
     else:
-        for data in search_normal(devil):
+        for data in (search_element(devil) or search_normal(devil)):
             print data['type'][0].encode('utf-8'),data['type'][1].encode('utf-8')
-            for _data in data['details']:
-                for foo in _data:
-                    print foo['name'].encode('utf-8'),foo['urlencode']
+            if data.has_key('details'):
+                for _data in data.get('details'):
+                    for foo in _data:
+                        print foo['name'].encode('utf-8'),foo['urlencode']
+                    print
                 print
-            print
 

@@ -29,8 +29,10 @@ class MainPage(webapp.RequestHandler):
         if detail:
             special_result = search.search_special(detail)
             if not special_result :
-                normal_results = search.search_normal(detail)
-                min_max = search.get_min_max(detail)
+                normal_results = search.search_element(detail)
+                if not normal_results:
+                    normal_results = search.search_normal(detail)
+                    min_max = search.get_min_max(detail)
         values = {
             'detail':detail,
             'normals':normal_results,
