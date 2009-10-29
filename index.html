@@ -30,7 +30,7 @@ else if (field.value == '') field.value = field.defaultValue;
   <div id="banner_panel">
     <div id="banner_section">
       {% if detail %}
-      <h1>LV {{ detail.0 }} {{ detail.1 }} {{ detail.2 }}</h1>
+      <h1>LV {{ detail.lv }} {{ detail.type }} {{ detail.name }}</h1>
       <p>
       <table>
         <thead>
@@ -48,33 +48,33 @@ else if (field.value == '') field.value = field.defaultValue;
             <th>火</th>
             <th>氷</th>
             <th>電</th>
-            <th>風</th>
+            <th>衝撃</th>
             <th>破</th>
             <th>呪</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td>{{ detail.16 }}</td>
-            <td>{{ detail.17 }}</td>
-            <td>{{ detail.18 }}</td>
-            <td>{{ detail.19 }}</td>
-            <td>{{ detail.20 }}</td>
-            <td>{{ detail.21 }}</td>
-            <td>{{ detail.22 }}</td>
-            <td>{{ detail.23 }}</td>
-            <td>{{ detail.6 }}</td>
-            <td>{{ detail.7 }}</td>
-            <td>{{ detail.8 }}</td>
-            <td>{{ detail.9 }}</td>
-            <td>{{ detail.10 }}</td>
-            <td>{{ detail.11 }}</td>
-            <td>{{ detail.12 }}</td>
-            <td>{{ detail.13 }}</td>
+            <td>{{ detail.stance }}</td>
+            <td>{{ detail.hp }}</td>
+            <td>{{ detail.mp }}</td>
+            <td>{{ detail.strength }}</td>
+            <td>{{ detail.magic }}</td>
+            <td>{{ detail.vitality }}</td>
+            <td>{{ detail.speed }}</td>
+            <td>{{ detail.luck }}</td>
+            <td>{{ detail.attack }}</td>
+            <td>{{ detail.shot }}</td>
+            <td>{{ detail.fire }}</td>
+            <td>{{ detail.ice }}</td>
+            <td>{{ detail.electric }}</td>
+            <td>{{ detail.force }}</td>
+            <td>{{ detail.expel }}</td>
+            <td>{{ detail.death }}</td>
           </tr>
         </tbody>
       </table>
-      {% for data in detail %}
+      {% for key,data in detail %}
         {{ data }}
       {% endfor %}
       </p>

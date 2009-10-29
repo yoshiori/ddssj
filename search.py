@@ -1,10 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-try:
-    import simplejson
-except:
-    from django.utils import simplejson
+from django.utils import simplejson
 import os
 
 gousei_data = simplejson.load(open(os.path.join(os.path.dirname(__file__), 'data/gousei.json')))
@@ -44,36 +41,46 @@ def get_min_max(devil):
         if level < _level and _max > _level:
             _max = _level
     return _min,_max
-    
-def get_results(name):
-    devil = detail_data.get(name)
+
+def search_nomal(devil):
+    gousei = gousei_data[devil['type']]
+    min_max = get_min_max(devil)
+    results = {}
+    for result in gousei:
+        result = tuple(result)
+        results[result] = search_result(result,min_max)
+    return results
+
+def search_special(devil):
+    name = devil['name']
     if tokusyu_data.has_key(name):
         data = tokusyu_data[name]
         _list = []
         for dev in data:
             _list.append(detail_data[dev])
-        return {(u'特殊'):[_list]}
-    if devil:
-        gousei = gousei_data[devil['type']]
-        min_max = get_min_max(devil)
-        results = {}
-        for result in gousei:
-            result = tuple(result)
-            results[result] = search_result(result,min_max)
-        return results
-
+        return _list
+    
 if __name__ == '__main__':
     import sys
-    text = u'リリム'
+    text = u'メタトロン'
+
     if 1 < len(sys.argv):
         text = unicode(sys.argv[1],'utf-8')
         print text
-    for key,data in get_results(text).items():
-        if data:
-            print key[0].encode('utf-8'),key[1].encode('utf-8')
-            for _data in data:
-                for foo in _data:
-                    print foo['name'].encode('utf-8'),
+    devil = detail_data.get(text)
+    if not devil:
+        print '404'
+    special_result = search_special(devil)
+    if special_result:
+        for result in special_result:
+            print result['name'].encode('utf-8'),
+    else:
+        for key,data in search_nomal(devil).items():
+            if data:
+                print key[0].encode('utf-8'),key[1].encode('utf-8')
+                for _data in data:
+                    for foo in _data:
+                        print foo['name'].encode('utf-8'),
+                    print
                 print
-            print
 

@@ -19,14 +19,18 @@ class MainPage(webapp.RequestHandler):
         detail = []
         if name:
             detail = search.detail_data[name]
-        results = {}
+        nomal_results = {}
+        special_result = []
         if detail:
-            results = search.get_results(name)
+            special_result = search.search_special(detail)
+            if not special_result :
+                nomal_results = search.search_nomal(detail)
         logging.debug(detail)
-        logging.debug(results)
+        logging.debug(nomal_results)
         values = {
             'detail':detail,
-            'results' : results,
+            'nomal' : nomal_results,
+            'special' : special_result,
             }
 
         self.response.out.write(template.render(path, values))
