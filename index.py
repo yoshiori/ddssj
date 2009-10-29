@@ -18,7 +18,7 @@ class MainPage(webapp.RequestHandler):
         path = os.path.join(os.path.dirname(__file__), 'index.html')
         detail = []
         if name:
-            detail = search.detail_data[name]
+            detail = search.detail_data.get(name)
         nomal_results = {}
         special_result = []
         if detail:
