@@ -8,10 +8,16 @@ import os
 
 gousei_data = simplejson.load(open(os.path.join(os.path.dirname(__file__), 'data/gousei.json')))
 detail_data = simplejson.load(open(os.path.join(os.path.dirname(__file__), 'data/devil_detail_dic.json')))
-tokusyu_data = simplejson.load(open(os.path.join(os.path.dirname(__file__), 'data/tokusyu.json')))
+special_data = simplejson.load(open(os.path.join(os.path.dirname(__file__), 'data/tokusyu.json')))
 element_data = simplejson.load(open(os.path.join(os.path.dirname(__file__), 'data/element.json')))
 element_up_data = simplejson.load(open(os.path.join(os.path.dirname(__file__), 'data/element-up.json')))
+mitama_data =  simplejson.load(open(os.path.join(os.path.dirname(__file__), 'data/mitama.json')))
 
+converter_type = {
+    u'珍獣':u'魔獣',
+    u'魔人':u'幻魔',
+    u'魔神':u'秘神',
+    }
 devil_list ={}
 
 for data in detail_data.values():
@@ -38,7 +44,7 @@ def get_min_max(devil):
     _min = 1
     devils = devil_list[devil['type']]
     for dev in devils:
-        if tokusyu_data.has_key(dev['name']):
+        if special_data.has_key(dev['name']):
             continue
         _level = dev['lv']
         if level > _level and _min < _level:
@@ -50,8 +56,19 @@ def get_min_max(devil):
     return _min,_max
 
 def search_normal(devil):
-    gousei = gousei_data.get(devil['type'])
-    min_max = get_min_max(devil)
+    return _search(devil['type'],get_min_max(devil))
+
+def search_converter(devil):
+    _type = converter_type.get(devil['type'])
+    if not _type:
+        return
+    return _search(_type,get_min_max(devil))
+
+def search_kyoshin(devil):
+    return u'狂神' == devil['type']
+
+def _search(type,min_max):
+    gousei = gousei_data.get(type)
     results = []
     if not gousei:
         return results
@@ -63,6 +80,7 @@ def search_normal(devil):
                            'details':details,
                            })
     return results
+    
 
 def search_element(devil):
     name = devil['name']
@@ -78,7 +96,7 @@ def search_element_up(devil):
     if element_up_data.has_key(name):
         results = []
         lv = devil['lv']
-        _list = sorted(devil_list[name],lambda x ,y :cmp(x['lv'], y['lv']))
+        _list = sorted(devil_list[name],key=lambda x: x['lv'])
         index = _list.index(devil)
         for n,x in element_up_data[name].items():
             if 0 <= index + x < len(_list):
@@ -87,11 +105,22 @@ def search_element_up(devil):
                     _list[index + x]
                     ))
         return results
+
+def search_mitama(devil):
+    name = devil['name']
+    _list = []
+    if mitama_data.has_key(name):
+        for names in mitama_data[name]:
+            _list.append((
+                detail_data[names[0]],
+                detail_data[names[1]]
+                ))
+        return [{'details':_list}]
             
 def search_special(devil):
     name = devil['name']
-    if tokusyu_data.has_key(name):
-        data = tokusyu_data[name]
+    if special_data.has_key(name):
+        data = special_data[name]
         _list = []
         for dev in data:
             _list.append(detail_data[dev])
@@ -100,13 +129,15 @@ def search_special(devil):
 def _main2():
     text = u'リリム'
     devil = detail_data.get(text)
-    reuslts = search_element_up(devil)
-    
+    results = search_element_up(devil)
+    for detail in results:
+        print detail[0]['name'].encode('utf-8'),detail[1]['name'].encode('utf-8')
     
 def _main():
     import sys
     text = u'リリム'
-    text = u'エアロス'
+    text = u'シヴァ'
+    #   text = u'エアロス'
 
     if 1 < len(sys.argv):
         text = unicode(sys.argv[1],'utf-8')
@@ -128,6 +159,31 @@ def _main():
                     print
                 print
 
+def _main3():
+    text = u'デイビット'
+    devil = detail_data.get(text)
+    for data in search_converter(devil):
+        print data['type'][0].encode('utf-8'),data['type'][1].encode('utf-8')
+        if data.has_key('details'):
+            for _data in data.get('details'):
+                for foo in _data:
+                    print foo['name'].encode('utf-8'),foo['urlencode']
+                print
+            print
+            
+def _main4():
+    text = u'クシミタマ'
+    devil = detail_data.get(text)
+    for data in search_mitama(devil):
+        if data.has_key('details'):
+            for _data in data.get('details'):
+                for foo in _data:
+                    print foo['name'].encode('utf-8'),foo['urlencode']
+                print
+            print
+
 if __name__ == '__main__':
-    #    _main()    
-    _main2()
+    #        _main()    
+    #    _main2()
+    #    _main3()
+    _main4()

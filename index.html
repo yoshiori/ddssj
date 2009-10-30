@@ -3,6 +3,7 @@
 <head>
 <title>{{ detail.name }} [逆引き 真・女神転生 STRANGE JOURNEY]</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="shortcut icon" href="/favicon.ico" >
 <link href="/css/style.css" rel="stylesheet" type="text/css" />
 <script language="javascript" type="text/javascript">
 function clearText(field)
@@ -99,9 +100,21 @@ else if (field.value == '') field.value = field.defaultValue;
     <div id="content_left">
       <h1>逆引き結果</h1>
       <div class="cleaner_with_height">&nbsp;</div>
+      {% if converter %}
+      <h3>サブアプリ<strength>「{{ detail.type }}コンバータ」</strength>を装備して合体</h3>
+      {% endif %}
+      {% if kyoshin %}
+      <p>
+        <h3>合体事故でのみ発生</h3>
+        サブアプリ「コペルニクス」「狂神招来」使用推奨<br />
+        詳細わかる方は教えてください＞＜
+      </p>
+      {% endif %}
       <div class="content_left_two_column">
         {% for data in normals %}
+          {% if data.type %}
           <h2>{{ data.type.0}} x {{ data.type.1 }}</h2>
+          {% endif %}
           <ul>
             {% for detail in data.details %}
               <li><a href="/{{detail.0.urlencode}}">{{ detail.0.name }}</a> x <a href="/{{detail.1.urlencode}}">{{ detail.1.name }}</a></li>
@@ -153,5 +166,14 @@ else if (field.value == '') field.value = field.defaultValue;
   <!-- end of footer -->
 </div>
 <!-- end of container -->
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-567515-3");
+pageTracker._trackPageview();
+} catch(err) {}</script>
 </body>
 </html>

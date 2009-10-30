@@ -17,11 +17,16 @@ class MainPage(webapp.RequestHandler):
         results = {
             'detail':detail,
             }
-        special_result = search.search_special(detail)
 
         #特殊合体時 
+        special_result = search.search_special(detail)
         if special_result:
             results['special'] = special_result
+            return results
+
+        #特殊合体時 
+        if search.search_kyoshin(detail):
+            results['kyoshin'] = True
             return results
 
         #精霊だった時
@@ -30,6 +35,19 @@ class MainPage(webapp.RequestHandler):
             results['normals'] = normal_results
             return results
 
+        #御霊だった時
+        normal_results = search.search_mitama(detail)
+        if normal_results:
+            results['normals'] = normal_results
+            return results
+        
+        normal_results = search.search_converter(detail)
+        #コンバータ使用
+        if normal_results:
+            results['normals'] = normal_results
+            results['converter'] = True
+            return results
+        
         #普通の検索
         normal_results = search.search_normal(detail)
         min_max = search.get_min_max(detail)
