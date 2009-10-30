@@ -25,7 +25,7 @@ def search_result(data,minmax):
     for devil1 in list1:
         for devil2 in list2:
             lv = (devil1['lv'] + devil2['lv']) / 2
-            if minmax[0] < lv <= minmax[1]:
+            if minmax[0] <= lv < minmax[1]:
                 _list.append((devil1,devil2))
     return _list
 
@@ -47,9 +47,11 @@ def get_min_max(devil):
     return _min,_max
 
 def search_normal(devil):
-    gousei = gousei_data[devil['type']]
+    gousei = gousei_data.get(devil['type'])
     min_max = get_min_max(devil)
     results = []
+    if not gousei:
+        return results
     for result in gousei:
         result = tuple(result)
         details = search_result(result,min_max)
