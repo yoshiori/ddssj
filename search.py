@@ -1,13 +1,16 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-#import simplejson
-from django.utils import simplejson
+try:
+    import simplejson
+except:
+    from django.utils import simplejson
 import os
 
 gousei_data = simplejson.load(open(os.path.join(os.path.dirname(__file__), 'data/gousei.json')))
 detail_data = simplejson.load(open(os.path.join(os.path.dirname(__file__), 'data/devil_detail_dic.json')))
 tokusyu_data = simplejson.load(open(os.path.join(os.path.dirname(__file__), 'data/tokusyu.json')))
 element_data = simplejson.load(open(os.path.join(os.path.dirname(__file__), 'data/element.json')))
+element_up_data = simplejson.load(open(os.path.join(os.path.dirname(__file__), 'data/element-up.json')))
 
 devil_list ={}
 
@@ -25,14 +28,14 @@ def search_result(data,minmax):
     for devil1 in list1:
         for devil2 in list2:
             lv = (devil1['lv'] + devil2['lv']) / 2
-            if minmax[0] <= lv < minmax[1]:
+            if minmax[0] <= lv <= minmax[1]:
                 _list.append((devil1,devil2))
     return _list
 
 def get_min_max(devil):
     level = devil['lv'];
     _max = 100;
-    _min = 0
+    _min = 1
     devils = devil_list[devil['type']]
     for dev in devils:
         if tokusyu_data.has_key(dev['name']):
@@ -41,7 +44,7 @@ def get_min_max(devil):
         if level > _level and _min < _level:
             _min = _level + 1
         if level < _level and _max > _level:
-            _max = _level
+            _max = _level - 1
     if not _max == 100:
         _max = level
     return _min,_max
@@ -69,7 +72,22 @@ def search_element(devil):
             result = (result,result)
             results.append({'type':result})
         return results
-    
+
+def search_element_up(devil):
+    name = devil['type']
+    if element_up_data.has_key(name):
+        results = []
+        lv = devil['lv']
+        _list = sorted(devil_list[name],lambda x ,y :cmp(x['lv'], y['lv']))
+        index = _list.index(devil)
+        for n,x in element_up_data[name].items():
+            if 0 <= index + x < len(_list):
+                results.append((
+                    detail_data[n],
+                    _list[index + x]
+                    ))
+        return results
+            
 def search_special(devil):
     name = devil['name']
     if tokusyu_data.has_key(name):
@@ -78,9 +96,14 @@ def search_special(devil):
         for dev in data:
             _list.append(detail_data[dev])
         return _list
+
+def _main2():
+    text = u'リリム'
+    devil = detail_data.get(text)
+    reuslts = search_element_up(devil)
     
-if __name__ == '__main__':
- 
+    
+def _main():
     import sys
     text = u'リリム'
     text = u'エアロス'
@@ -105,3 +128,6 @@ if __name__ == '__main__':
                     print
                 print
 
+if __name__ == '__main__':
+    #    _main()    
+    _main2()

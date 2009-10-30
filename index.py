@@ -11,41 +11,52 @@ import search
 
 class MainPage(webapp.RequestHandler):
 
+    def _get_results(self,detail):
+        if not detail:
+            return None
+        results = {
+            'detail':detail,
+            }
+        special_result = search.search_special(detail)
+
+        #特殊合体時 
+        if special_result:
+            results['special'] = special_result
+            return results
+
+        #精霊だった時
+        normal_results = search.search_element(detail)
+        if normal_results:
+            results['normals'] = normal_results
+            return results
+
+        #普通の検索
+        normal_results = search.search_normal(detail)
+        min_max = search.get_min_max(detail)
+        elements = search.search_element_up(detail)
+        results['normals'] = normal_results
+        results['min_max'] = min_max
+        results['elements'] = elements
+        return results
+
     def get(self,name):
         name = urllib.unquote_plus(name)
         name = unicode(name,'utf-8')
         logging.debug(name)
         path = os.path.join(os.path.dirname(__file__), 'index.html')
-        detail = []
+        detail = None
         if name:
             detail = search.detail_data.get(name)
-        normal_results = {}
-        special_result = []
-        min_max = []
         if name and not detail:
             self.response.out.write('404 Daemon Not Found.')
             self.response.set_status(404)
             return
-        if detail:
-            special_result = search.search_special(detail)
-            if not special_result :
-                normal_results = search.search_element(detail)
-                if not normal_results:
-                    normal_results = search.search_normal(detail)
-                    min_max = search.get_min_max(detail)
-        values = {
-            'detail':detail,
-            'normals':normal_results,
-            'special':special_result,
-            'min_max':min_max,
-            }
+        values = self._get_results(detail)
         self.response.out.write(template.render(path, values))
 
     def post(self,*name):
         name = self.request.get("name")
-#        print name.encode('utf-8')
         self.redirect('/' + urllib.quote_plus(name.encode('utf-8')))
-
 
 def main():
     application = webapp.WSGIApplication(

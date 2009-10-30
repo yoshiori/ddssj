@@ -121,8 +121,14 @@ else if (field.value == '') field.value = field.defaultValue;
         {% endif %}
       </div>
       <div class="content_left_two_column">
+        {% if elements %}
           <h2>精霊合体</h2>
-          作成中
+          <ul>
+            {% for detail in elements %}
+              <li><a href="/{{detail.0.urlencode}}">{{ detail.0.name }}</a> x <a href="/{{detail.1.urlencode}}">{{ detail.1.name }}</a></li>
+            {% endfor %}
+          </ul>
+        {% endif %}
       </div>
       <div class="cleaner"></div>
     </div>
