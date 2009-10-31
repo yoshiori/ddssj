@@ -23,14 +23,21 @@
             </h1>
             <a class="button slideup" id="infoButton" href="#about">About</a>
         </div>
-        <form method="post" action="/">
         <ul>
-          <li><input name="name" type="text" placeholder="Search" /></li>
+          <li><a class="flip" href="#search">検索</a></li>
+        </ul>
+        {% if detail %}
+        <ul>
+          <li><a class="slideup" href="#detail">詳細</a></li>
+        </ul>
+        {% endif %}
+    </div>
+    <div id="search" >
+        <form method="post" action="/" target="_blank">
+        <ul>
+          <li><input name="name" type="text" placeholder="悪魔名" /></li>
         </ul>
         </form>
-        <ul>
-          <li><a class="flip" href="#detail">詳細</a></li>
-        </ul>
     </div>
     <div id="detail" >
         <div class="toolbar">
