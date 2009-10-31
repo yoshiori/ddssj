@@ -61,7 +61,7 @@ class MainPage(webapp.RequestHandler):
         name = urllib.unquote_plus(name)
         name = unicode(name,'utf-8')
         logging.debug(name)
-        path = os.path.join(os.path.dirname(__file__), 'index.html')
+        path = os.path.join(os.path.dirname(__file__), 'i_index.html')
         detail = None
         if name:
             detail = search.detail_data.get(name)

@@ -32,7 +32,7 @@ else if (field.value == '') field.value = field.defaultValue;
     <div id="banner_section">
       {% if detail %}
       <h1>LV {{ detail.lv }} {{ detail.type }} {{ detail.name }}</h1>
-      <p>
+      <h2>ステータス</h2>
       <table>
         <thead>
           <tr>
@@ -44,14 +44,6 @@ else if (field.value == '') field.value = field.defaultValue;
             <th>体</th>
             <th>速</th>
             <th>運</th>
-            <th>物</th>
-            <th>銃</th>
-            <th>火</th>
-            <th>氷</th>
-            <th>電</th>
-            <th>衝撃</th>
-            <th>破</th>
-            <th>呪</th>
           </tr>
         </thead>
         <tbody>
@@ -64,6 +56,25 @@ else if (field.value == '') field.value = field.defaultValue;
             <td>{{ detail.vitality }}</td>
             <td>{{ detail.speed }}</td>
             <td>{{ detail.luck }}</td>
+          </tr>
+        </tbody>
+      </table>
+      <h2>耐性</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>物理</th>
+            <th>銃</th>
+            <th>火</th>
+            <th>氷</th>
+            <th>電</th>
+            <th>衝撃</th>
+            <th>破</th>
+            <th>呪</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
             <td>{{ detail.attack }}</td>
             <td>{{ detail.shot }}</td>
             <td>{{ detail.fire }}</td>
@@ -75,10 +86,6 @@ else if (field.value == '') field.value = field.defaultValue;
           </tr>
         </tbody>
       </table>
-      {% for key,data in detail %}
-        {{ data }}
-      {% endfor %}
-      </p>
       {% else %}
       <h1>検索</h1>
       <p> 右上で検索してね </p>

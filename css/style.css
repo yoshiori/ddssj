@@ -154,7 +154,7 @@ p {
 }
 
 #banner_section h1 {
-	font-size: 24px;
+        font-size: 24px;
 	color: #0fb1cb;
 	margin: 0px;
 	padding: 5px 0 30px 0;
@@ -162,6 +162,42 @@ p {
 
 #banner_section p {
 	padding-bottom: 30px;
+}
+
+#banner_section table {
+  margin-top: 0.2em;
+  margin-bottom: 1em;
+  width: 570px;
+  border-collapse: separate;
+  border-spacing: 2px;
+  font-size: 100%;
+}
+
+#banner_section table caption {
+  margin-top: 1em;
+  text-align: right;
+}
+
+#banner_section table th,
+#banner_section table td {
+  padding: 4px 6px;
+}
+
+#banner_section table th {
+  border-bottom: solid 1px #B2B2B2;
+  border-right: solid 1px #B2B2B2;
+  background: #333333;
+  text-align: center;
+  white-space: nowrap;
+  font-size: 92%;
+}
+
+#banner_section table td {
+  border-bottom: solid 1px #B2B2B2;
+  border-right: solid 1px #B2B2B2;
+  background: #111111;
+  text-align: center;
+  white-space: nowrap;
 }
 
 #banner_panel #menu_section {

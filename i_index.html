@@ -1,0 +1,102 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>{{ detail.name }} [逆引き 真・女神転生 STRANGE JOURNEY]</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="shortcut icon" href="/favicon.ico" >
+<script type="text/javascript" src="http://www.google.com/jsapi"></script>
+<script type="text/javascript"> google.load("jquery", "1.3.2"); </script>
+<script src="/js/jqtouch/jqtouch.min.js" type="application/x-javascript" charset="utf-8"></script>
+<style type="text/css" media="screen">@import "/css/jqtouch/jqtouch.min.css";</style>
+<style type="text/css" media="screen">@import "/css/jqtouch/themes/jqt/theme.min.css";</style>
+<script type="text/javascript" charset="utf-8">$.jQTouch();</script>
+</head>
+<body>
+    <div>
+        <div class="toolbar">
+            <h1>
+            {% if detail %}
+              {{ detail.name }}
+            {% else %}
+              逆引 真・女神転生 SJ
+            {% endif %}
+            </h1>
+            <a class="button slideup" id="infoButton" href="#about">About</a>
+        </div>
+        <ul>
+          <li><a class="flip" href="#detail">詳細</a></li>
+        </ul>
+    </div>
+    <div id="detail" >
+        <div class="toolbar">
+            <h1>
+            {% if detail %}
+              {{ detail.name }}
+            {% else %}
+              逆引 真・女神転生 SJ
+            {% endif %}
+            </h1>
+        <a class="back" href="#">back</a> 
+        </div>
+      <h1>LV {{ detail.lv }} {{ detail.type }} {{ detail.name }}</h1>
+      <h2>ステータス</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>属性</th>
+            <th>HP</th>
+            <th>MP</th>
+            <th>力</th>
+            <th>魔</th>
+            <th>体</th>
+            <th>速</th>
+            <th>運</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>{{ detail.stance }}</td>
+            <td>{{ detail.hp }}</td>
+            <td>{{ detail.mp }}</td>
+            <td>{{ detail.strength }}</td>
+            <td>{{ detail.magic }}</td>
+            <td>{{ detail.vitality }}</td>
+            <td>{{ detail.speed }}</td>
+            <td>{{ detail.luck }}</td>
+          </tr>
+        </tbody>
+      </table>
+      <h2>耐性</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>物理</th>
+            <th>銃</th>
+            <th>火</th>
+            <th>氷</th>
+            <th>電</th>
+            <th>衝撃</th>
+            <th>破</th>
+            <th>呪</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>{{ detail.attack }}</td>
+            <td>{{ detail.shot }}</td>
+            <td>{{ detail.fire }}</td>
+            <td>{{ detail.ice }}</td>
+            <td>{{ detail.electric }}</td>
+            <td>{{ detail.force }}</td>
+            <td>{{ detail.expel }}</td>
+            <td>{{ detail.death }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div id="about" >
+            <p><strong>[逆引き 真・女神転生 STRANGE JOURNEY]</strong><br />Version 1.0 beta<br />
+            <p><br /><br /><a href="#" class="grayButton goback">Close</a></p>
+    </div>
+</body>
+</html>
