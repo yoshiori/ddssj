@@ -16,7 +16,7 @@
         <div class="toolbar">
             <h1>
             {% if detail %}
-              {{ detail.name }}
+              LV {{ detail.lv }} {{ detail.type }} {{ detail.name }}
             {% else %}
               逆引 真・女神転生 SJ
             {% endif %}
@@ -28,7 +28,12 @@
         </ul>
         {% if detail %}
         <ul>
-          <li><a class="slideup" href="#detail">詳細</a></li>
+          <li><a href="#detail">詳細</a></li>
+        </ul>
+        {% endif %}
+        {% if normals %}
+        <ul>
+          <li><a href="#results">結果</a></li>
         </ul>
         {% endif %}
     </div>
@@ -39,6 +44,28 @@
         </ul>
         </form>
     </div>
+    <div id="results">
+        <div class="toolbar">
+            <h1>
+            {% if detail %}
+              {{ detail.name }}
+            {% else %}
+              逆引 真・女神転生 SJ
+            {% endif %}
+            </h1>
+        <a class="back" href="#">back</a>
+        </div>
+        <ul>
+        {% for data in normals %}
+          {% if data.type %}
+            <li class="sep">{{ data.type.0}} x {{ data.type.1 }}</li>
+          {% endif %}
+          {% for detail in data.details %}
+            <li><a href="/{{detail.0.urlencode}}" target="_webapp">{{ detail.0.name }}</a> x <a href="/{{detail.1.urlencode}}" target="_webapp">{{ detail.1.name }}</a></li>
+          {% endfor %}
+        {% endfor %}
+        </ul>
+    </div>
     <div id="detail" >
         <div class="toolbar">
             <h1>
@@ -48,7 +75,7 @@
               逆引 真・女神転生 SJ
             {% endif %}
             </h1>
-        <a class="back" href="#">back</a> 
+        <a class="back" href="#">back</a>
         </div>
       <h1>LV {{ detail.lv }} {{ detail.type }} {{ detail.name }}</h1>
       <h2>ステータス</h2>
