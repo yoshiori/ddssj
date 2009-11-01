@@ -16,10 +16,12 @@ else if (field.value == '') field.value = field.defaultValue;
 <body>
 <div id="container">
   <div id="header_panel">
+    <a href="/" style='text-decoration: none;'>
     <div id="site_title">
       <h1>真・女神転生 <span>STRANGE JOURNEY</span></h1>
       <h2>逆引き悪魔合体</h2>
     </div>
+    </a>
     <div id="search_box">
       <form method="post" action="/">
         <input name="name" type="text" value="Search..." id="searchfield"  onfocus="clearText(this)" onblur="clearText(this)" />
@@ -58,9 +60,6 @@ else if (field.value == '') field.value = field.defaultValue;
             <td>{{ detail.luck }}</td>
           </tr>
         </tbody>
-      </table>
-      <h2>耐性</h2>
-      <table>
         <thead>
           <tr>
             <th>物理</th>
@@ -106,8 +105,23 @@ else if (field.value == '') field.value = field.defaultValue;
   <div id="content_top"></div>
   <div id="content">
     <div id="content_left">
+      {% if not index %}
       <h1>逆引き結果</h1>
+      {% endif %}
       <div class="cleaner_with_height">&nbsp;</div>
+      <div class="content_left_two_column">
+      {% if index %}
+        {% for data in all_devils.items|slice:":21" %}
+            <h2>{{ data.0 }}</h2>
+            <ul>
+            {% for detail in data.1 %}
+              <li>
+              <a href="/{{detail.urlencode}}">{{ detail.name }}</a>
+              </li>
+            {% endfor %}
+            </ul>
+        {% endfor %}
+      {% endif %}
       {% if converter %}
       <h3>サブアプリ<strength>「{{ detail.type }}コンバータ」</strength>を装備して合体</h3>
       {% endif %}
@@ -118,7 +132,6 @@ else if (field.value == '') field.value = field.defaultValue;
         詳細わかる方は教えてください＞＜
       </p>
       {% endif %}
-      <div class="content_left_two_column">
         {% for data in normals %}
           {% if data.type %}
           <h2>{{ data.type.0}} x {{ data.type.1 }}</h2>
@@ -142,6 +155,18 @@ else if (field.value == '') field.value = field.defaultValue;
         {% endif %}
       </div>
       <div class="content_left_two_column">
+        {% if index %}
+          {% for data in all_devils.items|slice:"21:45" %}
+            <h2>{{ data.0 }}</h2>
+            <ul>
+            {% for detail in data.1 %}
+              <li>
+              <a href="/{{detail.urlencode}}">{{ detail.name }}</a>
+              </li>
+            {% endfor %}
+            </ul>
+          {% endfor %}
+        {% endif %}
         {% if elements %}
           <h2>精霊合体</h2>
           <ul>
@@ -170,7 +195,7 @@ else if (field.value == '') field.value = field.defaultValue;
     <!-- end of content right -->
   </div>
   <div id="content_bottom"></div>
-  <div id="footer"> <a href="mailto:yoshiori@gmail.com">mail</a> | <a href="http://yoshiori.org/">site</a></div>
+  <div id="footer"> <a href="mailto:yoshiori@gmail.com">mail</a> | <a href="http://twitter.com/yoshiori/">@yoshiori</a> | <a href="http://yoshiori.org/">site</a></div>
   <!-- end of footer -->
 </div>
 <!-- end of container -->

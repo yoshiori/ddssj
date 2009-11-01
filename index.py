@@ -12,12 +12,14 @@ import search
 class MainPage(webapp.RequestHandler):
 
     def _get_results(self,detail):
-        if not detail:
-            return None
         results = {
             'detail':detail,
+            'all_devils':search.devil_list,
             }
-
+        if not detail:
+            results['index'] = True
+            return results
+        
         #特殊合体時 
         special_result = search.search_special(detail)
         if special_result:
@@ -58,17 +60,18 @@ class MainPage(webapp.RequestHandler):
         return results
 
     def get(self,name):
-        name = urllib.unquote_plus(name)
-        name = unicode(name,'utf-8')
-        logging.debug(name)
         path = os.path.join(os.path.dirname(__file__), 'index.html')
         detail = None
         if name:
+            name = urllib.unquote_plus(name)
+            name = unicode(name,'utf-8')
+            logging.debug(name)
             detail = search.detail_data.get(name)
         if name and not detail:
             self.response.out.write('404 Daemon Not Found.')
             self.response.set_status(404)
             return
+
         values = self._get_results(detail)
         self.response.out.write(template.render(path, values))
 
