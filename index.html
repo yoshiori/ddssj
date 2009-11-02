@@ -34,6 +34,7 @@ else if (field.value == '') field.value = field.defaultValue;
     <div id="banner_section">
       {% if detail %}
       <h1>LV {{ detail.lv }} {{ detail.type }} {{ detail.name }}</h1>
+        {% if not demonica_modoki %}
       <h2>ステータス</h2>
       <table>
         <thead>
@@ -85,10 +86,10 @@ else if (field.value == '') field.value = field.defaultValue;
           </tr>
         </tbody>
       </table>
+        {% endif %}
       {% else %}
       <h1>検索</h1>
       <p> 右上で検索してね </p>
-      <h2>パスワード限定悪魔にはまだ未対応です</h2>
       {% endif %}
     </div>
     <!-- end of banner section -->
@@ -106,12 +107,18 @@ else if (field.value == '') field.value = field.defaultValue;
   <div id="content">
     <div id="content_left">
       {% if not index %}
-      <h1>逆引き結果</h1>
+      <h1>
+        {% if not password_only %}
+        逆引き結果
+        {% else %}
+        パスワード限定悪魔
+        {% endif %}
+      </h1>
       {% endif %}
       <div class="cleaner_with_height">&nbsp;</div>
       <div class="content_left_two_column">
       {% if index %}
-        {% for data in all_devils.items|slice:":21" %}
+        {% for data in all_devils.items|slice:":22" %}
             <h2>{{ data.0 }}</h2>
             <ul>
             {% for detail in data.1 %}
@@ -156,7 +163,7 @@ else if (field.value == '') field.value = field.defaultValue;
       </div>
       <div class="content_left_two_column">
         {% if index %}
-          {% for data in all_devils.items|slice:"21:45" %}
+          {% for data in all_devils.items|slice:"22:45" %}
             <h2>{{ data.0 }}</h2>
             <ul>
             {% for detail in data.1 %}
@@ -174,6 +181,85 @@ else if (field.value == '') field.value = field.defaultValue;
               <li><a href="/{{detail.0.urlencode}}">{{ detail.0.name }}</a> x <a href="/{{detail.1.urlencode}}">{{ detail.1.name }}</a></li>
             {% endfor %}
           </ul>
+        {% endif %}
+        {% if detail.password %}
+          <h2>パスワード</h2>
+          {{ detail.password }}
+        {% endif %}
+        {% if demonica_modoki %}
+          {% for detail in demonica_modoki %}
+      <h2>{{ detail.stance }}</h2>
+      <table>
+        <thead>
+          <tr>
+            <th colspan="8">パスワード</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td colspan="8">{{ detail.password }}</td>
+          </tr>
+        </tbody>
+        <thead>
+          <tr>
+            <th>属性</th>
+            <th>HP</th>
+            <th>MP</th>
+            <th>力</th>
+            <th>魔</th>
+            <th>体</th>
+            <th>速</th>
+            <th>運</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>{{ detail.stance }}</td>
+            <td>{{ detail.hp }}</td>
+            <td>{{ detail.mp }}</td>
+            <td>{{ detail.strength }}</td>
+            <td>{{ detail.magic }}</td>
+            <td>{{ detail.vitality }}</td>
+            <td>{{ detail.speed }}</td>
+            <td>{{ detail.luck }}</td>
+          </tr>
+        </tbody>
+        <thead>
+          <tr>
+            <th>物理</th>
+            <th>銃</th>
+            <th>火</th>
+            <th>氷</th>
+            <th>電</th>
+            <th>衝撃</th>
+            <th>破</th>
+            <th>呪</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>{{ detail.attack }}</td>
+            <td>{{ detail.shot }}</td>
+            <td>{{ detail.fire }}</td>
+            <td>{{ detail.ice }}</td>
+            <td>{{ detail.electric }}</td>
+            <td>{{ detail.force }}</td>
+            <td>{{ detail.expel }}</td>
+            <td>{{ detail.death }}</td>
+          </tr>
+        </tbody>
+        <thead>
+          <tr>
+            <th colspan="8">スキル</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td colspan="8">{{ detail.skill|join:", " }}</td>
+          </tr>
+        </tbody>
+      </table>
+          {% endfor %}
         {% endif %}
       </div>
       <div class="cleaner"></div>

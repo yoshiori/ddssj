@@ -164,14 +164,14 @@ p {
 	padding-bottom: 30px;
 }
 
-#banner_section table {
+table {
   margin-top: 0.2em;
   margin-bottom: 1em;
   width: 570px;
   font-size: 100%;
 }
 
-#banner_section table th {
+table th {
   border-bottom: solid 1px #B2B2B2;
   border-right: solid 1px #B2B2B2;
   background: #333333;
@@ -180,7 +180,7 @@ p {
   font-size: 92%;
 }
 
-#banner_section table td {
+table td {
   border-bottom: solid 1px #B2B2B2;
   border-right: solid 1px #B2B2B2;
   background: #111111;
