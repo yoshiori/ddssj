@@ -75,6 +75,12 @@ def _search(type,min_max):
     for result in gousei:
         result = tuple(result)
         details = search_result(result,min_max)
+        # 特殊合体に使うものは省く
+        for detail in details:
+            names =[detail[0]['name'],detail[1]['name']]
+            for special in special_data.values():
+                if set(names) == set(special):
+                    details.remove(detail)
         if details:
             results.append({'type':result,
                            'details':details,
@@ -137,6 +143,7 @@ def _main():
     import sys
     text = u'リリム'
     text = u'シヴァ'
+    text = u'スフィンクス'
     #   text = u'エアロス'
 
     if 1 < len(sys.argv):
@@ -183,7 +190,7 @@ def _main4():
             print
 
 if __name__ == '__main__':
-    #        _main()    
+    _main()    
     #    _main2()
     #    _main3()
-    _main4()
+    #    _main4()
