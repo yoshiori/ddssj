@@ -3,7 +3,7 @@
 import simplejson,urllib
 if __name__ == '__main__':
     detail_data = simplejson.load(open('devil_detail.json'))
-    password_data = simplejson.load(open('password.json'))
+    password_data = simplejson.load(open('base_password.json'))
     def _print(data):
         if isinstance(data, unicode): data = data.encode('utf-8')
         return data
@@ -42,7 +42,11 @@ if __name__ == '__main__':
         detail['speed'] = _print(data[22])
         detail['luck'] = _print(data[23])
         if password_data.has_key(name):
-            detail['password'] = _print(password_data.get(name))
+            pas_data = password_data[name]
+            detail['password'] = _print(pas_data['password'])
+            detail['cost'] = _print(pas_data['cost'])
+        else:
+            print name
         _list[_print(name)] = detail
     file = open('devil_detail_dic.json','w')
     file.write(

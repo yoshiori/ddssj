@@ -185,6 +185,8 @@ else if (field.value == '') field.value = field.defaultValue;
         {% if detail.password %}
           <h2>パスワード</h2>
           {{ detail.password }}
+          <h2>コスト</h2>
+          {{ detail.cost }}
         {% endif %}
         {% if demonica_modoki %}
           {% for detail in demonica_modoki %}
