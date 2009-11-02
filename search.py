@@ -12,6 +12,8 @@ special_data = simplejson.load(open(os.path.join(os.path.dirname(__file__), 'dat
 element_data = simplejson.load(open(os.path.join(os.path.dirname(__file__), 'data/element.json')))
 element_up_data = simplejson.load(open(os.path.join(os.path.dirname(__file__), 'data/element-up.json')))
 mitama_data =  simplejson.load(open(os.path.join(os.path.dirname(__file__), 'data/mitama.json')))
+password_data = simplejson.load(open(os.path.join(os.path.dirname(__file__), 'data/password.json')))
+demonica_modoki_data = simplejson.load(open(os.path.join(os.path.dirname(__file__), 'data/demonica_modoki.json')))
 
 converter_type = {
     u'珍獣':u'魔獣',
@@ -132,6 +134,11 @@ def search_special(devil):
             _list.append(detail_data[dev])
         return _list
 
+def is_password_only(devil):
+    name = devil['name']
+    return password_data.has_key(name)
+
+
 def _main2():
     text = u'リリム'
     devil = detail_data.get(text)
@@ -188,9 +195,21 @@ def _main4():
                     print foo['name'].encode('utf-8'),foo['urlencode']
                 print
             print
+def _main5():
+    text = u'バガブー'
+    devil = detail_data.get(text)
+    if is_password_only(devil):
+        print devil['password'].encode('utf-8')
+
+def _main6():
+    text = u'デモニカもどき'
+    for devil in demonica_modoki_data:
+        print devil['password'].encode('utf-8')
 
 if __name__ == '__main__':
-    _main()    
+    #    _main()    
     #    _main2()
     #    _main3()
     #    _main4()
+    #    _main5()
+    _main6()

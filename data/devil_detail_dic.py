@@ -3,19 +3,22 @@
 import simplejson,urllib
 if __name__ == '__main__':
     detail_data = simplejson.load(open('devil_detail.json'))
+    password_data = simplejson.load(open('password.json'))
     def _print(data):
         if isinstance(data, unicode): data = data.encode('utf-8')
         return data
     _list = {}
     for name,data in detail_data.items():
 #        print name.encode('utf_8')
-        if name.encode('utf-8') == 'デモニカもどき':
-            print 'fff'
-            continue
         detail = {}
         detail['lv'] = _print(data[0])
         detail['type'] = _print(data[1])
         detail['name'] = _print(data[2])
+        detail['urlencode'] = urllib.quote_plus(_print(name))
+        if name.encode('utf-8') == 'デモニカもどき':
+            print 'fff'
+            _list[_print(name)] = detail
+            continue
         skills = []
         for i in range(3,6):
             if data[i]:
@@ -38,8 +41,8 @@ if __name__ == '__main__':
         detail['vitality'] = _print(data[21])
         detail['speed'] = _print(data[22])
         detail['luck'] = _print(data[23])
-        detail['urlencode'] = urllib.quote_plus(_print(name))
-        detail['test'] ='test'
+        if password_data.has_key(name):
+            detail['password'] = _print(password_data.get(name))
         _list[_print(name)] = detail
     file = open('devil_detail_dic.json','w')
     file.write(

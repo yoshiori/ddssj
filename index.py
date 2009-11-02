@@ -19,16 +19,26 @@ class MainPage(webapp.RequestHandler):
         if not detail:
             results['index'] = True
             return results
+        #デモニカもどき
+        if detail['name'] == u'デモニカもどき':
+            results['password_only'] = True
+            results['demonica_modoki'] = search.demonica_modoki_data
+            return results
+        
+        #パスワード限定悪魔
+        if search.is_password_only(detail):
+            results['password_only'] = True
+            return results
+        
+        #狂神合体時 
+        if search.search_kyoshin(detail):
+            results['kyoshin'] = True
+            return results
         
         #特殊合体時 
         special_result = search.search_special(detail)
         if special_result:
             results['special'] = special_result
-            return results
-
-        #特殊合体時 
-        if search.search_kyoshin(detail):
-            results['kyoshin'] = True
             return results
 
         #精霊だった時
