@@ -129,10 +129,16 @@ def search_special(devil):
     name = devil['name']
     if special_data.has_key(name):
         data = special_data[name]
+        result = {}
         _list = []
+        cost = 0
         for dev in data:
-            _list.append(detail_data[dev])
-        return _list
+            detail = detail_data[dev]
+            _list.append(detail)
+            cost += detail['cost']
+        result['data'] = _list
+        result['cost_sum'] = cost
+        return result
 
 def is_password_only(devil):
     name = devil['name']
@@ -150,7 +156,7 @@ def _main():
     import sys
     text = u'リリム'
     text = u'シヴァ'
-    text = u'スフィンクス'
+#    text = u'スフィンクス'
     #   text = u'エアロス'
 
     if 1 < len(sys.argv):
@@ -161,7 +167,7 @@ def _main():
         print '404'
     special_result = search_special(devil)
     if special_result:
-        for result in special_result:
+        for result in special_result['data']:
             print result['name'].encode('utf-8'),
     else:
         for data in (search_element(devil) or search_normal(devil)):

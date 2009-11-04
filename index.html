@@ -34,6 +34,12 @@ else if (field.value == '') field.value = field.defaultValue;
     <div id="banner_section">
       {% if detail %}
       <h1>LV {{ detail.lv }} {{ detail.type }} {{ detail.name }}</h1>
+      最安値 {{ reasonable.cost }} マッカ [
+      {% for detail in reasonable.details %}
+        <a href="/{{detail.urlencode}}">{{ detail.name }}</a>
+        {% if not forloop.last %}x{% endif %}
+      {% endfor %}
+      ]
         {% if not demonica_modoki %}
       <h2>ステータス</h2>
       <table>
@@ -145,8 +151,9 @@ else if (field.value == '') field.value = field.defaultValue;
           {% endif %}
           <ul>
             {% for detail in data.details %}
-              <li><a href="/{{detail.0.urlencode}}">{{ detail.0.name }}</a> x <a href="/{{detail.1.urlencode}}">{{ detail.1.name }}</a><br />
-              合計 {{ detail.0.cost|add:detail.1.cost }} マッカ</li>
+              <li><a href="/{{detail.0.urlencode}}">{{ detail.0.name }}</a> x <a href="/{{detail.1.urlencode}}">{{ detail.1.name }}</a>
+                  <br />合計 {{ detail.0.cost|add:detail.1.cost }} マッカ
+              </li>
             {% endfor %}
           </ul>
         {% endfor %}
@@ -154,10 +161,11 @@ else if (field.value == '') field.value = field.defaultValue;
         <h2>特殊合体</h2>
         <ul>
           <li>
-              {% for detail in special %}
+              {% for detail in special.data %}
                 <a href="/{{detail.urlencode}}">{{ detail.name }}</a>
                 {% if not forloop.last %}x{% endif %}
               {% endfor %}
+              <br />合計 {{ special.cost_sum }} マッカ
           </li>
           </ul>
         {% endif %}
@@ -179,7 +187,9 @@ else if (field.value == '') field.value = field.defaultValue;
           <h2>精霊合体</h2>
           <ul>
             {% for detail in elements %}
-              <li><a href="/{{detail.0.urlencode}}">{{ detail.0.name }}</a> x <a href="/{{detail.1.urlencode}}">{{ detail.1.name }}</a></li>
+              <li><a href="/{{detail.0.urlencode}}">{{ detail.0.name }}</a> x <a href="/{{detail.1.urlencode}}">{{ detail.1.name }}</a>
+                  <br />合計 {{ detail.0.cost|add:detail.1.cost }} マッカ
+              </li>
             {% endfor %}
           </ul>
         {% endif %}

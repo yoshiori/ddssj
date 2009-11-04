@@ -69,6 +69,32 @@ class MainPage(webapp.RequestHandler):
         results['elements'] = elements
         return results
 
+    def set_reasonable(self,results):
+        reasonable = {'cost':results['detail']['cost'],
+                      'details':[results['detail']],
+                      }
+        if results.has_key('normals'):
+            for data in results.get('normals'):
+                if data.has_key('details'):
+                    for details in data['details']:
+                        cost_sum = details[0]['cost'] + details[1]['cost']
+                        if reasonable['cost'] > cost_sum:
+                            reasonable['cost'] = cost_sum
+                            reasonable['details'] = details
+        if results.get('elements'):
+            for details in results.get('elements'):
+                cost_sum = details[0]['cost'] + details[1]['cost']
+                if reasonable['cost'] > cost_sum:
+                    reasonable['cost'] = cost_sum
+                    reasonable['details'] = details
+        if results.has_key('special'):
+            special = results.get('special')
+            cost_sum = special['cost_sum']
+            if reasonable['cost'] > cost_sum:
+                reasonable['cost'] = cost_sum
+                reasonable['details'] = special['data']
+        results['reasonable'] = reasonable
+
     def get(self,name):
         path = os.path.join(os.path.dirname(__file__), 'index.html')
         detail = None
@@ -83,6 +109,8 @@ class MainPage(webapp.RequestHandler):
             return
 
         values = self._get_results(detail)
+        if not values.get('index'):
+            self.set_reasonable(values)
         self.response.out.write(template.render(path, values))
 
     def post(self,*name):

@@ -15,6 +15,13 @@ if __name__ == '__main__':
         detail['type'] = _print(data[1])
         detail['name'] = _print(data[2])
         detail['urlencode'] = urllib.quote_plus(_print(name))
+        if password_data.has_key(name):
+            pas_data = password_data[name]
+            password = pas_data['password']
+            if len(password) > 16:
+                password = password[:16] + '\n' + password[16:]
+            detail['password'] = _print(password)
+            detail['cost'] = int(_print(pas_data['cost']))
         if name.encode('utf-8') == 'デモニカもどき':
             print 'fff'
             _list[_print(name)] = detail
