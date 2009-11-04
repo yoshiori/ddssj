@@ -46,9 +46,8 @@ if __name__ == '__main__':
             password = pas_data['password']
             if len(password) > 16:
                 password = password[:16] + '\n' + password[16:]
-                print password.encode('utf-8')
             detail['password'] = _print(password)
-            detail['cost'] = _print(pas_data['cost'])
+            detail['cost'] = int(_print(pas_data['cost']))
         else:
             print name
         _list[_print(name)] = detail

@@ -145,7 +145,8 @@ else if (field.value == '') field.value = field.defaultValue;
           {% endif %}
           <ul>
             {% for detail in data.details %}
-              <li><a href="/{{detail.0.urlencode}}">{{ detail.0.name }}</a> x <a href="/{{detail.1.urlencode}}">{{ detail.1.name }}</a></li>
+              <li><a href="/{{detail.0.urlencode}}">{{ detail.0.name }}</a> x <a href="/{{detail.1.urlencode}}">{{ detail.1.name }}</a><br />
+              合計 {{ detail.0.cost|add:detail.1.cost }} マッカ</li>
             {% endfor %}
           </ul>
         {% endfor %}

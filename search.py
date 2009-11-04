@@ -171,6 +171,7 @@ def _main():
                     for foo in _data:
                         print foo['name'].encode('utf-8'),foo['urlencode']
                     print
+                    print _data[0]['cost'] + _data[1]['cost']
                 print
 
 def _main3():
@@ -207,9 +208,9 @@ def _main6():
         print devil['password'].encode('utf-8')
 
 if __name__ == '__main__':
-    #    _main()    
+    _main()    
     #    _main2()
     #    _main3()
     #    _main4()
     #    _main5()
-    _main6()
+    #    _main6()
