@@ -107,10 +107,10 @@ def search_element_up(devil):
         _list = sorted(devil_list[name],key=lambda x: x['lv'])
         index = _list.index(devil)
         for n,x in element_up_data[name].items():
-            if 0 <= index + x < len(_list):
+            if 0 <= index - x < len(_list):
                 results.append((
                     detail_data[n],
-                    _list[index + x]
+                    _list[index - x]
                     ))
         return results
 
