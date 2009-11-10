@@ -28,6 +28,8 @@ for data in detail_data.values():
         devil_list[key].append(data)
     else:
         devil_list[key] = [data]
+for datas in devil_list.values():
+    datas.sort(key=lambda x: x['lv'])
 
 def search_result(data,minmax):
     list1 = devil_list[data[0]]

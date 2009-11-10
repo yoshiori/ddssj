@@ -129,7 +129,7 @@ else if (field.value == '') field.value = field.defaultValue;
             <ul>
             {% for detail in data.1 %}
               <li>
-              <a href="/{{detail.urlencode}}">{{ detail.name }}</a>
+              <a href="/{{detail.urlencode}}">LV{{ detail.lv }}:{{ detail.name }}</a>
               </li>
             {% endfor %}
             </ul>
@@ -177,7 +177,7 @@ else if (field.value == '') field.value = field.defaultValue;
             <ul>
             {% for detail in data.1 %}
               <li>
-              <a href="/{{detail.urlencode}}">{{ detail.name }}</a>
+              <a href="/{{detail.urlencode}}">LV{{ detail.lv }}:{{ detail.name }}</a>
               </li>
             {% endfor %}
             </ul>
