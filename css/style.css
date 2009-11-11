@@ -142,15 +142,15 @@ p {
 /* banner panel */
 #banner_panel {
 	width: 880px;
-	height: 263px;
+	height: 300px;
 	padding: 0px 30px 0px 50px;
-	background: #000000 url(../images/banner_bg.jpg) top center no-repeat;
+	background: #000000 url(../images/banner_bg.jpg) top center repeat-y;
 }
 
 #banner_panel #banner_section {
 	float: left;
 	padding-top: 40px;
-	width: 370px;
+	width: 600px;
 }
 
 #banner_section h1 {

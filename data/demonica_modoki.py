@@ -19,7 +19,11 @@ if __name__ == '__main__':
         skills = []
         for i in range(14,17):
             if data[i]:
-                skills.append(_print(data[i]))
+                skill = _print(data[i])
+                skills.append({
+                    'name':_print(skill),
+                    'urlencode': urllib.quote_plus(_print(skill))
+                    })
         detail['skill'] = skills
         detail['attack'] = _print(data[17])
         detail['shot'] = _print(data[18])
@@ -40,9 +44,21 @@ if __name__ == '__main__':
         detail['luck'] = _print(data[10])
         detail['urlencode'] = urllib.quote_plus(_print(name))
         detail['password'] = _print(data[26])
+        skill_list = []
+        for skill in data[28].split('・'):
+            skill_list.append({
+                'name':_print(skill),
+                'urlencode':urllib.quote_plus(_print(skill))
+                })
+            
+        _src = {'src_name':_print(data[27]),
+                'skills':skill_list
+                }
+        detail['src'] = _src
+
         _list.append(detail)
 
         
     from datetime import datetime
-    print datetime.now(),_list
+    print datetime.now()
     simplejson.dump(_list, open('demonica_modoki.json','w'),indent=2,ensure_ascii=False)

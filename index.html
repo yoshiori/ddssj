@@ -100,9 +100,18 @@ else if (field.value == '') field.value = field.defaultValue;
     </div>
     <!-- end of banner section -->
     <div id="menu_section">
+      {% if detail.skill %}
+      skill
+      {% endif %}
       <ul>
-        {% for name in detail.skill %}
-            <li><span>0{{ forloop.counter }}<span>{{ name }}</span></span></li>
+        {% for skill in detail.skill %}
+            <li><span>0{{ forloop.counter }}<span>{{ skill.name }}</span></span></li>
+        {% endfor %}
+      </ul>
+      {{ detail.src.src_name }}
+      <ul>
+        {% for skill in detail.src.skills %}
+            <li><span>0{{ forloop.counter }}<span>{{ skill.name }}</span></span></li>
         {% endfor %}
       </ul>
     </div>
@@ -196,6 +205,8 @@ else if (field.value == '') field.value = field.defaultValue;
         {% if detail.password %}
           <h2>パスワード</h2>
           {{ detail.password|linebreaks }}
+        {% endif %}
+        {% if detail.cost %}
           <h3>コスト</h3>
           {{ detail.cost }}
         {% endif %}
@@ -268,7 +279,25 @@ else if (field.value == '') field.value = field.defaultValue;
         </thead>
         <tbody>
           <tr>
-            <td colspan="8">{{ detail.skill|join:", " }}</td>
+            <td colspan="8">
+            {% for skill in detail.skill %}
+              {{ skill.name }}
+            {% endfor %}
+            </td>
+          </tr>
+        </tbody>
+        <thead>
+          <tr>
+            <th colspan="8">{{ detail.src.src_name }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td colspan="8">
+            {% for skill in detail.src.skills %}
+              {{ skill.name }}
+            {% endfor %}
+            </td>
           </tr>
         </tbody>
       </table>
