@@ -30,15 +30,15 @@ class MainPage(webapp.RequestHandler):
             results['password_only'] = True
             return results
         
-        #狂神合体時 
-        if search.search_kyoshin(detail):
-            results['kyoshin'] = True
-            return results
-        
         #特殊合体時 
         special_result = search.search_special(detail)
         if special_result:
             results['special'] = special_result
+            return results
+
+        #狂神合体時 
+        if search.search_kyoshin(detail):
+            results['kyoshin'] = True
             return results
 
         #精霊だった時
