@@ -218,7 +218,7 @@ table td {
 	color: #2bb9ec;
 }
 
-#menu_section ul li span span {
+#menu_section ul li span a {
 	margin: 0px;
 	padding: 0px;	
 	margin-left: 50px;
@@ -227,7 +227,7 @@ table td {
 	color: #2bb9ec;
 }
 
-#menu_section ul li span span:hover {
+#menu_section ul li span a:hover {
 	color: #fff;
 }
 

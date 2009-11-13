@@ -1,0 +1,127 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>{{ detail.name }} [逆引き 真・女神転生 STRANGE JOURNEY]</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="shortcut icon" href="/favicon.ico" >
+<link href="/css/style.css" rel="stylesheet" type="text/css" />
+<script language="javascript" type="text/javascript">
+function clearText(field)
+{
+if (field.defaultValue == field.value) field.value = '';
+else if (field.value == '') field.value = field.defaultValue;
+}
+</script>
+</head>
+<body>
+<div id="container">
+  <div id="header_panel">
+    <a href="/" style='text-decoration: none;'>
+    <div id="site_title">
+      <h1>真・女神転生 <span>STRANGE JOURNEY</span></h1>
+      <h2>逆引き悪魔合体</h2>
+    </div>
+    </a>
+    <div id="search_box">
+      <form method="post" action="/">
+        <input name="name" type="text" value="例:ジャックフロスト" id="searchfield"  onfocus="clearText(this)" onblur="clearText(this)" />
+        <input type="submit" name="submit" id="searchbutton" value="" />
+      </form>
+    </div>
+  </div>
+  <!-- end of header panel -->
+  <div id="banner_panel">
+    <div id="banner_section">
+      {% if detail %}
+      <h1>{{ detail.name }}</h1>
+      <h2>{{ detail.type }}</h2>
+      <p>{{ detail.detail }}</p>
+      {% else %}
+      <h1>検索</h1>
+      <p> 右上で検索してね </p>
+      {% endif %}
+    </div>
+    <!-- end of banner section -->
+    <div id="menu_section">
+      <ul>
+      </ul>
+    </div>
+    <!-- end of menu section -->
+  </div>
+  <!-- end of banner panel -->
+  <div id="content_top"></div>
+  <div id="content">
+    <div id="content_left">
+      {% if not index %}
+      <h1>
+      所持悪魔
+      </h1>
+      {% endif %}
+      <div class="cleaner_with_height">&nbsp;</div>
+      <div class="content_left_two_column">
+      <h2>基本スキルとして所持</h2>
+      {% if index %}
+        {% for data in all_skills.items %}
+            <h2>{{ data.0 }}</h2>
+            <ul>
+            {% for detail in data.1 %}
+              <li>
+              <a href="/{{detail.urlencode}}">LV{{ detail.lv }}:{{ detail.name }}</a>
+              </li>
+            {% endfor %}
+            </ul>
+        {% endfor %}
+      {% endif %}
+          <ul>
+            {% for devil in detail.devils %}
+              <li><a href="/{{devil.urlencode}}">{{ devil.name }}</a>
+              </li>
+            {% endfor %}
+          </ul>
+      </div>
+      <div class="content_left_two_column">
+        {% if index %}
+          {% for data in all_devils.items|slice:"22:45" %}
+            <h2>{{ data.0 }}</h2>
+            <ul>
+            {% for detail in data.1 %}
+              <li>
+              <a href="/{{detail.urlencode}}">LV{{ detail.lv }}:{{ detail.name }}</a>
+              </li>
+            {% endfor %}
+            </ul>
+          {% endfor %}
+        {% endif %}
+          <h2>ソースで所持</h2>
+          <ul>
+            {% for devil in detail.src %}
+              <li><a href="/{{devil.urlencode}}">{{ devil.name }}</a>
+              </li>
+            {% endfor %}
+          </ul>
+      </div>
+      <div class="cleaner"></div>
+    </div>
+    <!-- end of content left -->
+    <div id="content_right">
+      <div>
+      </div>
+    </div>
+    <!-- end of content right -->
+  </div>
+  <div id="content_bottom"></div>
+  <div id="footer"> <a href="mailto:yoshiori@gmail.com">mail</a> | <a href="http://twitter.com/yoshiori/">@yoshiori</a> | <a href="http://yoshiori.org/">site</a></div>
+  <!-- end of footer -->
+</div>
+<!-- end of container -->
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-567515-3");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+</body>
+</html>
