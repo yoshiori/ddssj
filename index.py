@@ -105,7 +105,7 @@ class MainPage(webapp.RequestHandler):
             logging.debug(name)
             detail = search.detail_data.get(name)
         if name and not detail:
-            self.response.out.write('404 Daemon Not Found.')
+            self.response.out.write('404 Daemon or skill Not Found.')
             self.response.set_status(404)
             return
 
@@ -124,13 +124,20 @@ class MainPage(webapp.RequestHandler):
 class SkillPage(webapp.RequestHandler):
     def get(self,name):
         path = os.path.join(os.path.dirname(__file__), 'skill_index.html')
-        values = {}
         if name:
+            values = {}
             name = urllib.unquote_plus(name)
             name = unicode(name,'utf-8')
             logging.debug(name)
-            values['detail'] = skillsearch.search(name)
-        self.response.out.write(template.render(path, values))
+            detail  = skillsearch.search(name)
+            if not detail:
+                self.response.out.write('404 skill Not Found.')
+                self.response.set_status(404)
+                return
+            values['detail'] = detail
+            self.response.out.write(template.render(path, values))
+        else:
+            self.redirect('/' + urllib.quote_plus(name.encode('utf-8')))
 
 def main():
     application = webapp.WSGIApplication(
