@@ -96,6 +96,12 @@ else if (field.value == '') field.value = field.defaultValue;
       {% else %}
       <h1>検索</h1>
       <p> 右上で検索してね </p>
+      <dl>
+        <dt>2009/11/13</dt>
+        <dd>スキル名でも検索出来るようにしました. <br />
+            右に出るスキルにもリンク貼りました．
+        </dd>
+      </dl>
       {% endif %}
     </div>
     <!-- end of banner section -->
@@ -105,13 +111,13 @@ else if (field.value == '') field.value = field.defaultValue;
       {% endif %}
       <ul>
         {% for skill in detail.skill %}
-            <li><span>0{{ forloop.counter }}<span>{{ skill.name }}</span></span></li>
+            <li><span>0{{ forloop.counter }} <a href='/skill/{{ skill.urlencode }}'>{{ skill.name }}</a></span></li>
         {% endfor %}
       </ul>
       {{ detail.src.src_name }}
       <ul>
         {% for skill in detail.src.skills %}
-            <li><span>0{{ forloop.counter }}<span>{{ skill.name }}</span></span></li>
+            <li><span>0{{ forloop.counter }}<a href='/skill/{{ skill.urlencode }}'>{{ skill.name }}</a></span></li>
         {% endfor %}
       </ul>
     </div>
@@ -133,7 +139,7 @@ else if (field.value == '') field.value = field.defaultValue;
       <div class="cleaner_with_height">&nbsp;</div>
       <div class="content_left_two_column">
       {% if index %}
-        {% for data in all_devils.items|slice:":22" %}
+        {% for data in all_devils.items %}
             <h2>{{ data.0 }}</h2>
             <ul>
             {% for detail in data.1 %}
@@ -181,16 +187,14 @@ else if (field.value == '') field.value = field.defaultValue;
       </div>
       <div class="content_left_two_column">
         {% if index %}
-          {% for data in all_devils.items|slice:"22:45" %}
-            <h2>{{ data.0 }}</h2>
+          <h2>スキル</h2>
             <ul>
-            {% for detail in data.1 %}
+              {% for data in all_skills.values %}
               <li>
-              <a href="/{{detail.urlencode}}">LV{{ detail.lv }}:{{ detail.name }}</a>
+              <a href="/skill/{{data.urlencode}}">{{ data.name }}</a>
               </li>
-            {% endfor %}
+              {% endfor %}
             </ul>
-          {% endfor %}
         {% endif %}
         {% if elements %}
           <h2>精霊合体</h2>
@@ -281,7 +285,7 @@ else if (field.value == '') field.value = field.defaultValue;
           <tr>
             <td colspan="8">
             {% for skill in detail.skill %}
-              {{ skill.name }}
+              <a href='/skill/{{ skill.urlencode }}'>{{ skill.name }}</a>
             {% endfor %}
             </td>
           </tr>
@@ -295,7 +299,7 @@ else if (field.value == '') field.value = field.defaultValue;
           <tr>
             <td colspan="8">
             {% for skill in detail.src.skills %}
-              {{ skill.name }}
+              <a href='/skill/{{ skill.urlencode }}'>{{ skill.name }}</a>
             {% endfor %}
             </td>
           </tr>

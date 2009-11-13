@@ -7,7 +7,7 @@ from google.appengine.ext import webapp,db
 from google.appengine.ext.webapp import template
 from django.utils import simplejson
 
-import search
+import search,skillsearch
 
 class MainPage(webapp.RequestHandler):
 
@@ -15,6 +15,7 @@ class MainPage(webapp.RequestHandler):
         results = {
             'detail':detail,
             'all_devils':search.devil_list,
+            'all_skills':skillsearch.skill_data,
             }
         if not detail:
             results['index'] = True
@@ -115,11 +116,27 @@ class MainPage(webapp.RequestHandler):
 
     def post(self,*name):
         name = self.request.get("name")
-        self.redirect('/' + urllib.quote_plus(name.encode('utf-8')))
+        if skillsearch.skill_data.has_key(name):
+            self.redirect('/skill/' + urllib.quote_plus(name.encode('utf-8')))
+        else:
+            self.redirect('/' + urllib.quote_plus(name.encode('utf-8')))
+
+class SkillPage(webapp.RequestHandler):
+    def get(self,name):
+        path = os.path.join(os.path.dirname(__file__), 'skill_index.html')
+        values = {}
+        if name:
+            name = urllib.unquote_plus(name)
+            name = unicode(name,'utf-8')
+            logging.debug(name)
+            values['detail'] = skillsearch.search(name)
+        self.response.out.write(template.render(path, values))
 
 def main():
     application = webapp.WSGIApplication(
-        [(r'/(.*)',MainPage),
+        [
+            (r'/skill/(.*)',SkillPage),
+            (r'/(.*)',MainPage),
          ],
         debug=True)
     logging.getLogger().setLevel(logging.DEBUG)
