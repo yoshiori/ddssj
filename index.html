@@ -91,6 +91,18 @@ else if (field.value == '') field.value = field.defaultValue;
             <td>{{ detail.death }}</td>
           </tr>
         </tbody>
+        <thead>
+          <tr>
+            <th colspan="8">攻撃タイプ</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td colspan="8">
+            {{ detail.attack_type }}
+            </td>
+          </tr>
+        </tbody>
       </table>
         {% endif %}
       {% else %}
@@ -274,6 +286,18 @@ else if (field.value == '') field.value = field.defaultValue;
             <td>{{ detail.force }}</td>
             <td>{{ detail.expel }}</td>
             <td>{{ detail.death }}</td>
+          </tr>
+        </tbody>
+        <thead>
+          <tr>
+            <th colspan="8">攻撃タイプ</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td colspan="8">
+            {{ detail.attack_type }}
+            </td>
           </tr>
         </tbody>
         <thead>
