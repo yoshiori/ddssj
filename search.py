@@ -4,7 +4,7 @@ try:
     import simplejson
 except:
     from django.utils import simplejson
-import os
+import os,math
 
 gousei_data = simplejson.load(open(os.path.join(os.path.dirname(__file__), 'data/gousei.json')))
 detail_data = simplejson.load(open(os.path.join(os.path.dirname(__file__), 'data/devil_detail_dic.json')))
@@ -37,7 +37,7 @@ def search_result(data,minmax):
     _list = []
     for devil1 in list1:
         for devil2 in list2:
-            lv = (devil1['lv'] + devil2['lv']) / 2
+            lv = int(math.ceil(float(devil1['lv'] + devil2['lv']) / 2))
             if minmax[0] <= lv <= minmax[1]:
                 _list.append((devil1,devil2))
     return _list
