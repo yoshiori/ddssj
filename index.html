@@ -204,13 +204,16 @@ else if (field.value == '') field.value = field.defaultValue;
       <div class="content_left_two_column">
         {% if index %}
           <h2>スキル</h2>
+          {% for data in all_skills.items %}
+            <h2>{{ data.0 }}</h2>
             <ul>
-              {% for data in all_skills.values %}
+            {% for detail in data.1 %}
               <li>
-              <a href="/skill/{{data.urlencode}}">{{ data.name }}</a>
+              <a href="/skill/{{detail.urlencode}}">{{ detail.name }}</a>
               </li>
               {% endfor %}
             </ul>
+          {% endfor %}
         {% endif %}
         {% if elements %}
           <h2>精霊合体</h2>

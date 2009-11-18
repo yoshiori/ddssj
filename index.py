@@ -15,7 +15,7 @@ class MainPage(webapp.RequestHandler):
         results = {
             'detail':detail,
             'all_devils':search.devil_list,
-            'all_skills':skillsearch.skill_data,
+            'all_skills':skillsearch.skill_list,
             }
         if not detail:
             results['index'] = True
