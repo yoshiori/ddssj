@@ -108,6 +108,9 @@ else if (field.value == '') field.value = field.defaultValue;
       {% else %}
       <h1>検索</h1>
       <p> 右上で検索してね </p>
+      {% for data in all_devils.items %}
+         <a href="#type{{ forloop.counter }}"> {{ data.0 }}</a>
+      {% endfor %}
       <dl>
         <dt>2009/11/18</dt>
         <dd>攻撃タイプを表示するようにしました. <br />
@@ -156,7 +159,7 @@ else if (field.value == '') field.value = field.defaultValue;
       <div class="content_left_two_column">
       {% if index %}
         {% for data in all_devils.items %}
-            <h2>{{ data.0 }}</h2>
+            <h2><a name="type{{ forloop.counter }}"> {{ data.0 }}</a></h2>
             <ul>
             {% for detail in data.1 %}
               <li>
