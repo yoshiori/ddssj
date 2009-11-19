@@ -17,7 +17,7 @@ for data in skill_data.values():
     else:
         skill_list[key] = [data]
 for datas in skill_list.values():
-    datas.sort(key=lambda x: x.get('mp'))
+    datas.sort(key=lambda x: x.get('sort'))
 
 
 def search(name):

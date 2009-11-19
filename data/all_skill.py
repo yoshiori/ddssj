@@ -7,7 +7,10 @@ def _print(data):
 #    print data
     return data.strip()
 
+count = 0
+
 def create(path, _type=None):
+    global count
     data = {}
     detail_index = 3
     if _type:
@@ -20,18 +23,24 @@ def create(path, _type=None):
         data[_print(detail[0])] = {
             'mp':int(detail[1]),
             'type':__type,
-            'detail':_print(detail[detail_index])
+            'detail':_print(detail[detail_index]),
+            'sort': count
             }
+        count += 1
     return data
+
 def create_auto(path):
+    global count
     data = {}
     detail_index = 1
     for skill in open(path):
         detail =  skill.split('\t')
         data[_print(detail[0])] = {
             'type':'自動',
-            'detail':_print(detail[detail_index])
+            'detail':_print(detail[detail_index]),
+            'sort':count
             }
+        count += 1
     return data
 
 if __name__ == '__main__':

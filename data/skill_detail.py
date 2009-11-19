@@ -70,7 +70,8 @@ if __name__ == '__main__':
             'name':skill,
             'type':_print(data['type']),
             'urlencode': urllib.quote_plus(skill),
-            'detail':_print(data['detail'])
+            'detail':_print(data['detail']),
+            'sort':data['sort']
             }
         devils = get_has_devil(skill_name)
         devil_data = []
