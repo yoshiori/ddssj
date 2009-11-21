@@ -14,6 +14,7 @@ element_up_data = simplejson.load(open(os.path.join(os.path.dirname(__file__), '
 mitama_data =  simplejson.load(open(os.path.join(os.path.dirname(__file__), 'data/mitama.json')))
 password_data = simplejson.load(open(os.path.join(os.path.dirname(__file__), 'data/password.json')))
 demonica_modoki_data = simplejson.load(open(os.path.join(os.path.dirname(__file__), 'data/demonica_modoki.json')))
+type_detail_data = simplejson.load(open(os.path.join(os.path.dirname(__file__), 'data/type_detail.json')))
 
 converter_type = {
     u'珍獣':u'魔獣',
@@ -21,7 +22,7 @@ converter_type = {
     u'魔神':u'秘神',
     }
 devil_list ={}
-
+sorted_devil_list = []
 for data in detail_data.values():
     key = data['type']
     if devil_list.has_key(key):
@@ -30,6 +31,11 @@ for data in detail_data.values():
         devil_list[key] = [data]
 for datas in devil_list.values():
     datas.sort(key=lambda x: x['lv'])
+for _type,details in devil_list.items():
+    sorted_devil_list.append(
+        {_type:details}
+        )
+sorted_devil_list.sort(key=lambda x : type_detail_data[x.keys()[0]])
 
 def search_result(data,minmax):
     list1 = devil_list[data[0]]

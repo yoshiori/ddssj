@@ -14,7 +14,7 @@ class MainPage(webapp.RequestHandler):
     def _get_results(self,detail):
         results = {
             'detail':detail,
-            'all_devils':search.devil_list,
+            'all_devils':search.sorted_devil_list,
             'all_skills':skillsearch.skill_list,
             }
         if not detail:

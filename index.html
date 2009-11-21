@@ -106,21 +106,123 @@ else if (field.value == '') field.value = field.defaultValue;
       </table>
         {% endif %}
       {% else %}
-      <h1>検索</h1>
-      <p> 右上で検索してね </p>
-      {% for data in all_devils.items %}
-         <a href="#type{{ forloop.counter }}"> {{ data.0 }}</a>
-      {% endfor %}
-      <dl>
-        <dt>2009/11/18</dt>
-        <dd>攻撃タイプを表示するようにしました. <br />
-            合体時の平均の計算が切り捨てになっていたので切り上げに修正しました．
-        </dd>
-        <dt>2009/11/13</dt>
-        <dd>スキル名でも検索出来るようにしました. <br />
-            右に出るスキルにもリンク貼りました．
-        </dd>
-      </dl>
+      <table>
+        <thead>
+        <tr>
+          <th colspan="3">Law</th>
+        </tr>
+        <tr>
+          <th>Light</th>
+          <th>Neutral</th>
+          <th>Dark</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+              <a href="#type1">大天使</a>
+              <a href="#type2">女神</a>
+              <a href="#type3">霊鳥</a>
+              <a href="#type4">神樹</a>
+          </td>
+          <td>
+              <a href="#type5">天使</a>
+              <a href="#type6">妖鳥</a>
+              <a href="#type7">妖魔</a>
+              <a href="#type8">天女</a>
+          </td>
+          <td>
+              <a href="#type9">邪神</a>
+              <a href="#type10">凶鳥</a>
+              <a href="#type11">妖樹</a>
+          </td>
+        </tr>
+        </tbody>
+        <thead>
+        <tr>
+          <th colspan="3">Neutral</th>
+        </tr>
+        <tr>
+          <th>Light</th>
+          <th>Neutral</th>
+          <th>Dark</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td>
+              <a href="#type12">魔神</a>
+              <a href="#type13">神獣</a>
+              <a href="#type14">聖獣</a>
+              <a href="#type15">幻魔</a>
+          </td>
+          <td >
+              <a href="#type16">妖精</a>
+              <a href="#type17">魔獣</a>
+              <a href="#type18">地霊</a>
+              <a href="#type19">龍王</a>
+          </td>
+          <td>
+              <a  href="#type20">死神</a>
+              <a  href="#type21">妖獣</a>
+              <a  href="#type22">邪鬼</a>
+              <a  href="#type23">妖虫</a>
+          </td>
+        </tr>
+        </tbody>
+        <thead>
+        <tr>
+          <th colspan="3">Chaos</th>
+        </tr>
+        <tr>
+          <th>Light</th>
+          <th>Neutral</th>
+          <th>Dark</th>
+        </tr>
+        <thead>
+        <tbody>
+        <tr>
+          <td>
+              <a href="#type24">破壊神</a>
+              <a href="#type25">地母神</a>
+              <a href="#type26">龍神</a>
+              <a href="#type27">鬼神</a>
+          </td>
+          <td>
+              <a  href="#type28">堕天使</a>
+              <a  href="#type29">妖鬼</a>
+              <a  href="#type30">鬼女</a>
+              <a  href="#type31">夜魔</a>
+          </td>
+          <td>
+              <a  href="#type32">魔王</a>
+              <a  href="#type33">邪龍</a>
+              <a  href="#type34">悪霊</a>
+              <a  href="#type35">外道</a>
+              <a  href="#type36">幽鬼</a>
+          </td>
+        </tr>
+        </tbody>
+        <thead>
+        <tr>
+          <th colspan="3">その他</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td colspan="3">
+              <a href="#type37">御魂</a>
+              <a href="#type38">秘神</a>
+              <a href="#type39">威霊</a>
+              <a href="#type40">精霊</a>
+              <a href="#type41">珍獣</a>
+              <a href="#type42">偽人</a>
+              <a href="#type43">魔人</a>
+              <a href="#type44">狂神</a>
+          </td>
+        </tr>
+        </tbody>
+      </table>
       {% endif %}
     </div>
     <!-- end of banner section -->
@@ -158,10 +260,10 @@ else if (field.value == '') field.value = field.defaultValue;
       <div class="cleaner_with_height">&nbsp;</div>
       <div class="content_left_two_column">
       {% if index %}
-        {% for data in all_devils.items %}
-            <h2><a name="type{{ forloop.counter }}"> {{ data.0 }}</a></h2>
+        {% for data in all_devils %}
+            <h2><a name="type{{ forloop.counter }}"> {{ data.keys.0 }}</a></h2>
             <ul>
-            {% for detail in data.1 %}
+            {% for detail in data.values.0 %}
               <li>
               <a href="/{{detail.urlencode}}">LV{{ detail.lv }}:{{ detail.name }}</a>
               </li>
