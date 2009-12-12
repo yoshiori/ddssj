@@ -44,8 +44,9 @@ def search_result(data,minmax):
     for devil1 in list1:
         for devil2 in list2:
             lv = int(math.ceil(float(devil1['lv'] + devil2['lv']) / 2))
-            if minmax[0] <= lv <= minmax[1]:
+            if minmax[0] <= lv < minmax[1]:
                 _list.append((devil1,devil2))
+
     return _list
 
 def get_min_max(devil):
@@ -58,9 +59,9 @@ def get_min_max(devil):
             continue
         _level = dev['lv']
         if level > _level and _min < _level:
-            _min = _level + 1
+            _min = _level
         if level < _level and _max > _level:
-            _max = _level - 1
+            _max = _level
     if not _max == 100:
         _max = level
     return _min,_max
@@ -162,8 +163,9 @@ def _main2():
     
 def _main():
     import sys
-    text = u'リリム'
-    text = u'シヴァ'
+    text = u'ハンサ'
+#    text = u'スパルナ'
+#    text = u'シヴァ'
 #    text = u'スフィンクス'
     #   text = u'エアロス'
 
