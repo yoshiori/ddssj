@@ -54,7 +54,7 @@ class MainPage(webapp.RequestHandler):
             results['normals'] = normal_results
             return results
          
-       normal_results = search.search_converter(detail)
+        normal_results = search.search_converter(detail)
         #コンバータ使用
         if normal_results:
             results['normals'] = normal_results
