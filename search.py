@@ -19,7 +19,7 @@ type_detail_data = simplejson.load(open(os.path.join(os.path.dirname(__file__), 
 converter_type = {
     u'珍獣':u'魔獣',
     u'魔人':u'幻魔',
-    u'魔神':u'秘神',
+    u'秘神':u'魔神',
     }
 devil_list ={}
 sorted_devil_list = []
