@@ -61,7 +61,7 @@ class MainPage(webapp.RequestHandler):
             results['converter'] = True
             return results
         
-        #普通の検索
+        #普通の検索x
         normal_results = search.search_normal(detail)
         min_max = search.get_min_max(detail)
         elements = search.search_element_up(detail)
